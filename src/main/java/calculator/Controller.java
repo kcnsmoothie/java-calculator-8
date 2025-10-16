@@ -7,6 +7,8 @@ public class Controller {
     private String delimiter = ",|:";
     private String customDelimiter = "";
     private int endOfCustomDelimiter;
+    private String[] parsedList = new String[3];
+    int[] parsedInt = new int[parsedList.length];
 
     public String Input() {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
@@ -16,7 +18,6 @@ public class Controller {
 
     public void inputParse() {
         Input();
-        System.out.println(inputStr);
 
         if (inputStr.startsWith("//") && inputStr.contains("|n")) {
             //커스텀 구분자가 끝나는 문자열의 index 위치 반환
@@ -29,8 +30,30 @@ public class Controller {
 
         System.out.println(delimiter);
 
+    }
+
+    public void parsedStrToInt() {
+
+        inputParse();
         //구분자로 정수 파싱 및 배열 저장
-        String[] parsedList = inputStr.split(delimiter);
+        parsedList = inputStr.split(delimiter);
         System.out.println(parsedList.length);
+
+
+        for (int i = 0; i < parsedList.length; i++) {
+            parsedInt[i] = Integer.parseInt(parsedList[i]);
+        }
+
+    }
+
+    public void parsedIntSum() {
+
+        inputParse();
+        parsedStrToInt();
+        int sum = 0;
+        for (int i = 0; i < parsedList.length; i++) {
+            sum += parsedInt[i];
+        }
+        System.out.println(sum);
     }
 }
