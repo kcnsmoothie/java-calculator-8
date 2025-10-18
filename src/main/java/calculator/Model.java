@@ -7,7 +7,6 @@ public class Model {
     private int endOfCustomDelimiter;
     private String[] parsedList = new String[3];
     int[] parsedInt = new int[parsedList.length];
-    private String parsedStr;
 
     private int result;
 
@@ -28,6 +27,15 @@ public class Model {
     public void setInputStr(String inputStr) {
         this.inputStr = inputStr;
     }
+
+    public Model(String input) {
+        inputStr = input;
+        checkCustomDelimiter();
+        parseStrToInt();
+        parsedIntSum();
+    }
+
+
 
     public void checkCustomDelimiter() {
         if (inputStr.startsWith("//") && inputStr.contains("\\n")) {
@@ -53,7 +61,7 @@ public class Model {
     }
 
     public int parsedIntSum() {
-        for (int i = 0; i < parsedList.length; i++) {
+        for (int i = 0; i < parsedInt.length; i++) {
             result += parsedInt[i];
         }
         return result;
