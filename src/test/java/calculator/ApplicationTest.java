@@ -28,7 +28,7 @@ class ApplicationTest extends NsTest {
     @Test
     void 공백_null_입력값_검증() {
         assertSimpleTest(() ->
-                assertThatThrownBy(() -> runException(""))
+                assertThatThrownBy(() -> runException(" "))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
@@ -38,6 +38,14 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
             assertThatThrownBy(() -> runException("-1,2,3"))
                 .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 문자열_입력_테스트() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("a,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
         );
     }
 
