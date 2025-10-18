@@ -30,12 +30,17 @@ public class Model {
 
     public Model(String input) {
         inputStr = input;
+        isValidInputStr(inputStr);
         checkCustomDelimiter();
         parseStrToInt();
         parsedIntSum();
     }
 
-
+    public void isValidInputStr(String inputStr) {
+        if (inputStr == null || inputStr.isEmpty()) {
+            throw new IllegalArgumentException("공백이나 null값을 입력받을 수 없습니다.");
+        }
+    }
 
     public void checkCustomDelimiter() {
         if (inputStr.startsWith("//") && inputStr.contains("\\n")) {
@@ -56,12 +61,19 @@ public class Model {
 
         //문자열 리스트를 정수형 리스트로 재저장
         for (int i = 0; i < parsedList.length; i++) {
-            parsedInt[i] = Integer.parseInt(parsedList[i]);
+            try {
+                parsedInt[i] = Integer.parseInt(parsedList[i]);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("문자는 계산할 수 없습니다.");
+            }
         }
     }
 
     public int parsedIntSum() {
         for (int i = 0; i < parsedInt.length; i++) {
+            if (parsedInt[i] < 0) {
+                throw new IllegalArgumentException("음수는 계산할 수 없습니다.");
+            }
             result += parsedInt[i];
         }
         return result;
