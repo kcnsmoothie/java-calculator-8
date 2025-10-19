@@ -1,12 +1,11 @@
 package calculator;
 
+import java.util.ArrayList;
+
 public class Model {
 
     private String delimiter = ",|:";
-    private String customDelimiter = "";
-    private int endOfCustomDelimiter;
-    private String[] parsedList = new String[3];
-    int[] parsedInt = new int[parsedList.length];
+    ArrayList<Integer> parsedInt = new ArrayList<>();
 
     private int result;
 
@@ -43,6 +42,8 @@ public class Model {
     }
 
     public void checkCustomDelimiter() {
+        String customDelimiter = "";
+        int endOfCustomDelimiter;
         if (inputStr.startsWith("//") && inputStr.contains("\\n")) {
             //커스텀 구분자가 끝나는 문자열의 index 위치 반환
             endOfCustomDelimiter = inputStr.indexOf("\\");
@@ -57,25 +58,28 @@ public class Model {
 
     public void parseStrToInt() {
         //구분자로 정수 파싱 및 배열 저장
-        parsedList = inputStr.split(delimiter);
+        String[] parsedList = inputStr.split(delimiter);
 
+        int number;
         //문자열 리스트를 정수형 리스트로 재저장
         for (int i = 0; i < parsedList.length; i++) {
             try {
-                parsedInt[i] = Integer.parseInt(parsedList[i]);
+                number = Integer.parseInt(parsedList[i]);
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("문자는 계산할 수 없습니다.");
             }
+            parsedInt.add(number);
         }
     }
 
     public int parsedIntSum() {
-        for (int i = 0; i < parsedInt.length; i++) {
-            if (parsedInt[i] < 0) {
+        for (int i = 0; i < parsedInt.toArray().length; i++) {
+            if (parsedInt.get(i) < 0) {
                 throw new IllegalArgumentException("음수는 계산할 수 없습니다.");
             }
-            result += parsedInt[i];
+            result += parsedInt.get(i);
         }
         return result;
+
     }
 }
