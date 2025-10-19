@@ -6,7 +6,6 @@ public class Model {
 
     private String delimiter = ",|:";
     ArrayList<Integer> parsedInt = new ArrayList<>();
-    private int result;
     private String inputStr;
 
     public Model(String input) {
@@ -34,7 +33,7 @@ public class Model {
             // 구분자 안에 커스텀 구분자를 추가
             delimiter = delimiter.concat("\\").concat(customDelimiter);
             // 커스텀 구분자가 끝나는 지점부터 inputStr을 변환
-            inputStr = inputStr.substring(endOfCustomDelimiter + 2, inputStr.length());
+            inputStr = inputStr.substring(endOfCustomDelimiter + 2);
         }
     }
 
@@ -44,9 +43,9 @@ public class Model {
 
         int number;
         //문자열 리스트를 정수형 리스트로 재저장
-        for (int i = 0; i < parsedList.length; i++) {
+        for (String string : parsedList) {
             try {
-                number = Integer.parseInt(parsedList[i]);
+                number = Integer.parseInt(string);
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("문자는 계산할 수 없습니다.");
             }
@@ -55,12 +54,14 @@ public class Model {
     }
 
     public int parsedIntSum() {
-        for (int i = 0; i < parsedInt.toArray().length; i++) {
-            if (parsedInt.get(i) < 0) {
+        int result = 0;
+        for (Integer integer : parsedInt) {
+            if (integer < 0) {
                 throw new IllegalArgumentException("음수는 계산할 수 없습니다.");
             }
-            result += parsedInt.get(i);
+            result += integer;
         }
         return result;
+
     }
 }
