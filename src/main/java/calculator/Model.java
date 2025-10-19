@@ -6,26 +6,8 @@ public class Model {
 
     private String delimiter = ",|:";
     ArrayList<Integer> parsedInt = new ArrayList<>();
-
     private int result;
-
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
-
     private String inputStr;
-
-    public String getInputStr() {
-        return inputStr;
-    }
-
-    public void setInputStr(String inputStr) {
-        this.inputStr = inputStr;
-    }
 
     public Model(String input) {
         inputStr = input;
@@ -80,6 +62,5 @@ public class Model {
             result += parsedInt.get(i);
         }
         return result;
-
     }
 }

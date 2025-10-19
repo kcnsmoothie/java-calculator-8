@@ -7,7 +7,7 @@ public class Controller {
     public Controller() {
         model = new Model(view.Input());
 
-        int result = model.getResult();
+        int result = model.parsedIntSum();
         view.output(result);
     }
 
